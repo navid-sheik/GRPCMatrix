@@ -47,44 +47,44 @@ public class GRPCClientService {
 		return helloResponse.getPong();
 	}
 
-	// public String add() {
-	// 	ManagedChannel channel = ManagedChannelBuilder.forAddress("localhost", 9090)
-	// 			.usePlaintext()
-	// 			.build();
-	// 	MatrixServiceGrpc.MatrixServiceBlockingStub stub = MatrixServiceGrpc.newBlockingStub(channel);
-	// 	MatrixReply A = stub.addBlock(MatrixRequest.newBuilder()
-	// 			.setA00(1)
-	// 			.setA01(2)
-	// 			.setA10(5)
-	// 			.setA11(6)
-	// 			.setB00(2)
-	// 			.setB01(3)
-	// 			.setB10(6)
-	// 			.setB11(7)
-	// 			.build());
-	// 	String resp = A.getC00() + A.getC01() + A.getC10() + A.getC11() + "";
-	// 	return resp;
-	// }
+	public String add() {
+		ManagedChannel channel = ManagedChannelBuilder.forAddress("localhost", 9090)
+				.usePlaintext()
+				.build();
+		MatrixServiceGrpc.MatrixServiceBlockingStub stub = MatrixServiceGrpc.newBlockingStub(channel);
+		MatrixReply A = stub.addBlock(MatrixRequest.newBuilder()
+				.setA00(1)
+				.setA01(2)
+				.setA10(5)
+				.setA11(6)
+				.setB00(2)
+				.setB01(3)
+				.setB10(6)
+				.setB11(7)
+				.build());
+		String resp = A.getC00() + A.getC01() + A.getC10() + A.getC11() + "";
+		return resp;
+	}
 
-	// public String multMatrix() {
-	// 	ManagedChannel channel = ManagedChannelBuilder.forAddress("localhost", 9090)
-	// 			.usePlaintext()
-	// 			.build();
-	// 	MatrixServiceGrpc.MatrixServiceBlockingStub stub = MatrixServiceGrpc.newBlockingStub(channel);
-	// 	MatrixReply A = stub.multiplyBlock(MatrixRequest.newBuilder()
-	// 			.setA00(1)
-	// 			.setA01(2)
-	// 			.setA10(5)
-	// 			.setA11(6)
-	// 			.setB00(2)
-	// 			.setB01(3)
-	// 			.setB10(6)
-	// 			.setB11(7)
-	// 			.build());
-	// 	String resp = A.getC00() + A.getC01() + A.getC10() + A.getC11() + "";
-	// 	return resp;
+	public String multMatrix() {
+		ManagedChannel channel = ManagedChannelBuilder.forAddress("localhost", 9090)
+				.usePlaintext()
+				.build();
+		MatrixServiceGrpc.MatrixServiceBlockingStub stub = MatrixServiceGrpc.newBlockingStub(channel);
+		MatrixReply A = stub.multiplyBlock(MatrixRequest.newBuilder()
+				.setA00(1)
+				.setA01(2)
+				.setA10(5)
+				.setA11(6)
+				.setB00(2)
+				.setB01(3)
+				.setB10(6)
+				.setB11(7)
+				.build());
+		String resp = A.getC00() + A.getC01() + A.getC10() + A.getC11() + "";
+		return resp;
 
-	// }
+	}
 
 	public String fileUpload(@RequestParam("file") MultipartFile file, @RequestParam("file2") MultipartFile file2)
 			throws IOException {
@@ -121,15 +121,11 @@ public class GRPCClientService {
 			for(int j=0;j<matrixB.length;j++){    
 				matrixC[i][j]=0;      
 				for(int k=0;k<matrixA.length;k++)      
-				{  
-					
-					//multiple first row A with first colum B, and so on 
-					//Calculate the first mutiplication and store in C[i][j], add the result as we multiple the other values
+				{      
 
 				}
 			}
 		}
-	}
 
 	private static int[][] convertMatrixToString(String matrixString) {
 		// Split the matrix based on the space

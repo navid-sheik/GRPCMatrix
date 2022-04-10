@@ -47,88 +47,56 @@ public class GRPCClientService {
 		return helloResponse.getPong();
 	}
 
-	// public String add() {
-	// 	ManagedChannel channel = ManagedChannelBuilder.forAddress("localhost", 9090)
-	// 			.usePlaintext()
-	// 			.build();
-	// 	MatrixServiceGrpc.MatrixServiceBlockingStub stub = MatrixServiceGrpc.newBlockingStub(channel);
-	// 	MatrixReply A = stub.addBlock(MatrixRequest.newBuilder()
-	// 			.setA00(1)
-	// 			.setA01(2)
-	// 			.setA10(5)
-	// 			.setA11(6)
-	// 			.setB00(2)
-	// 			.setB01(3)
-	// 			.setB10(6)
-	// 			.setB11(7)
-	// 			.build());
-	// 	String resp = A.getC00() + A.getC01() + A.getC10() + A.getC11() + "";
-	// 	return resp;
-	// }
+	public String add() {
+		ManagedChannel channel = ManagedChannelBuilder.forAddress("localhost", 9090)
+				.usePlaintext()
+				.build();
+		MatrixServiceGrpc.MatrixServiceBlockingStub stub = MatrixServiceGrpc.newBlockingStub(channel);
+		MatrixReply A = stub.addBlock(MatrixRequest.newBuilder()
+				.setA00(1)
+				.setA01(2)
+				.setA10(5)
+				.setA11(6)
+				.setB00(2)
+				.setB01(3)
+				.setB10(6)
+				.setB11(7)
+				.build());
+		String resp = A.getC00() + A.getC01() + A.getC10() + A.getC11() + "";
+		return resp;
+	}
 
-	// public String multMatrix() {
-	// 	ManagedChannel channel = ManagedChannelBuilder.forAddress("localhost", 9090)
-	// 			.usePlaintext()
-	// 			.build();
-	// 	MatrixServiceGrpc.MatrixServiceBlockingStub stub = MatrixServiceGrpc.newBlockingStub(channel);
-	// 	MatrixReply A = stub.multiplyBlock(MatrixRequest.newBuilder()
-	// 			.setA00(1)
-	// 			.setA01(2)
-	// 			.setA10(5)
-	// 			.setA11(6)
-	// 			.setB00(2)
-	// 			.setB01(3)
-	// 			.setB10(6)
-	// 			.setB11(7)
-	// 			.build());
-	// 	String resp = A.getC00() + A.getC01() + A.getC10() + A.getC11() + "";
-	// 	return resp;
-
-	// }
-
-	public String fileUpload(@RequestParam("file") MultipartFile file, @RequestParam("file2") MultipartFile file2)
-			throws IOException {
-		String firstMatrix = new String(file.getBytes(), StandardCharsets.UTF_8);
-		System.out.println("File 1 uploaded correctlu");
-		System.out.println(firstMatrix);
-
-		String secondMatrix = new String(file2.getBytes(), StandardCharsets.UTF_8);
-		System.out.println("File 2 uploaded correctlu");
-		System.out.println(secondMatrix);
-
-		int[][] matrixA = convertMatrixToString(firstMatrix);
-		int[][] matrixB = convertMatrixToString(secondMatrix);
-
-		if (!checkMatrix(matrixA, matrixB))
-			System.out.println("Somethign wrong , adjust your matrix");
-
-		clientOperation(matrixA, matrixB);
-
-		return firstMatrix + secondMatrix + "hello";
+	public String multMatrix() {
+		ManagedChannel channel = ManagedChannelBuilder.forAddress("localhost", 9090)
+				.usePlaintext()
+				.build();
+		MatrixServiceGrpc.MatrixServiceBlockingStub stub = MatrixServiceGrpc.newBlockingStub(channel);
+		MatrixReply A = stub.multiplyBlock(MatrixRequest.newBuilder()
+				.setA00(1)
+				.setA01(2)
+				.setA10(5)
+				.setA11(6)
+				.setB00(2)
+				.setB01(3)
+				.setB10(6)
+				.setB11(7)
+				.build());
+		String resp = A.getC00() + A.getC01() + A.getC10() + A.getC11() + "";
+		return resp;
 
 	}
 
-	private static  void clientOperation(int[][] matrixA, int[][] matrixB){
-		//perform multiplication
-		//Source https://www.javatpoint.com/java-program-to-multiply-two-matrices
-		
-		//new size matrix  
-		int[][] matrixC =  new int[matrixA.length][matrixB.length];
+	public String fileUpload(@RequestParam("file") MultipartFile file, @RequestParam("file2") MultipartFile file2)
+			throws IOException {
+		String content = new String(file.getBytes(), StandardCharsets.UTF_8);
+		System.out.println("File 1 uploaded correctlu");
+		System.out.println(content);
 
+		String content2 = new String(file2.getBytes(), StandardCharsets.UTF_8);
+		System.out.println("File 2 uploaded correctlu");
+		System.out.println(content2);
+		return content + content2 + "hello";
 
-		//multiplying and printing multiplication of 2 matrices    
-		for(int i=0;i<matrixA.length;i++){    
-			for(int j=0;j<matrixB.length;j++){    
-				matrixC[i][j]=0;      
-				for(int k=0;k<matrixA.length;k++)      
-				{  
-					
-					//multiple first row A with first colum B, and so on 
-					//Calculate the first mutiplication and store in C[i][j], add the result as we multiple the other values
-
-				}
-			}
-		}
 	}
 
 	private static int[][] convertMatrixToString(String matrixString) {
@@ -143,11 +111,6 @@ public class GRPCClientService {
 			}
 		}
 		return matrix;
-	}
-
-	private static boolean checkMatrix(int[][] matrixA, int[][] matrixB) {
-		return (isSquareMatrix(matrixA) && isMatrixPowerOfTwo(matrixA))
-				&& (isSquareMatrix(matrixB) && isMatrixPowerOfTwo(matrixB));
 	}
 
 	private static boolean isPowerOfTwo(int n) {
@@ -169,7 +132,7 @@ public class GRPCClientService {
 
 	private static boolean isSquareMatrix(int[][] matrix) {
 		int rowNumber = matrix.length;
-		for (int i = 0; i < rowNumber; i++) {
+		for (int i = 0;  i < rowNumber; i++) {
 			if (matrix[i].length != rowNumber) {
 				return false;
 			}

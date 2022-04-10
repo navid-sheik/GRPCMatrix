@@ -54,10 +54,19 @@ public class PingPongEndpoint {
                 return grpcClientService.multMatrix();
         }
 	@PostMapping("/upload")
-	public String handleFileUpload(@RequestParam("file") MultipartFile file,@RequestParam("file2") MultipartFile file2)throws IOException  {
-		return grpcClientService.fileUpload(file, file2);
-
+	public String handleFileUpload(@RequestParam("file") MultipartFile file,@RequestParam("file2") MultipartFile file2,
+			RedirectAttributes redirectAttributes)throws IOException  {
 		
+
+		String content = new String(file.getBytes(), StandardCharsets.UTF_8);
+		System.out.println("File 1 uploaded correctlu");
+		System.out.println(content);
+
+
+ 		String content2 = new String(file2.getBytes(), StandardCharsets.UTF_8);
+                System.out.println("File 2 uploaded correctlu");
+                System.out.println(content2);
+    		return content + content2 +  "hello" ;
 //		try{
 //			String content = new String(file.getBytes());
 //			System.out.println(content);

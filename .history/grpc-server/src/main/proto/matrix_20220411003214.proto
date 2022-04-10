@@ -28,7 +28,6 @@ service MatrixService{
 
 // The request message containing the two matricies
 message MatrixRequest {
-
   int32 a = 1;
   int32 b = 2;
 }
