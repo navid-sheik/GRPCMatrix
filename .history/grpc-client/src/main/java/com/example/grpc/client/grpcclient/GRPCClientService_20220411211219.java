@@ -114,35 +114,35 @@ public class GRPCClientService {
 		
 		//new size matrix  
 		int[][] matrixC =  new int[matrixA.length][matrixB.length];
-		
+
 		//Channels 8
-		ManagedChannel channel1 = ManagedChannelBuilder.forAddress("35.225.85.78", 9090)
+		ManagedChannel channel1 = ManagedChannelBuilder.forAddress("localhost", 9090)
 								.usePlaintext()
 								.build();
 
-		ManagedChannel channel2 = ManagedChannelBuilder.forAddress("35.232.178.122", 9090)
+		ManagedChannel channel2 = ManagedChannelBuilder.forAddress("localhost", 9090)
 								.usePlaintext()
 								.build();
-		ManagedChannel channel3 = ManagedChannelBuilder.forAddress("34.121.217.92", 9090)
-								.usePlaintext()
-								.build();
-
-		ManagedChannel channel4 = ManagedChannelBuilder.forAddress("35.184.141.49", 9090)
+		ManagedChannel channel3 = ManagedChannelBuilder.forAddress("localhost", 9090)
 								.usePlaintext()
 								.build();
 
-		ManagedChannel channel5 = ManagedChannelBuilder.forAddress("130.211.211.43", 9090)
+		ManagedChannel channel4 = ManagedChannelBuilder.forAddress("localhost", 9090)
 								.usePlaintext()
 								.build();
 
-		ManagedChannel channel6 = ManagedChannelBuilder.forAddress("34.123.201.105", 9090)
-								.usePlaintext()
-								.build();
-		ManagedChannel channel7 = ManagedChannelBuilder.forAddress("35.232.98.155", 9090)
+		ManagedChannel channel5 = ManagedChannelBuilder.forAddress("localhost", 9090)
 								.usePlaintext()
 								.build();
 
-		ManagedChannel channel8 = ManagedChannelBuilder.forAddress("130.211.225.228", 9090)
+		ManagedChannel channel6 = ManagedChannelBuilder.forAddress("localhost", 9090)
+								.usePlaintext()
+								.build();
+		ManagedChannel channel7 = ManagedChannelBuilder.forAddress("localhost", 9090)
+								.usePlaintext()
+								.build();
+
+		ManagedChannel channel8 = ManagedChannelBuilder.forAddress("localhost", 9090)
 								.usePlaintext()
 								.build();
 						

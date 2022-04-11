@@ -114,35 +114,35 @@ public class GRPCClientService {
 		
 		//new size matrix  
 		int[][] matrixC =  new int[matrixA.length][matrixB.length];
-		
+
 		//Channels 8
-		ManagedChannel channel1 = ManagedChannelBuilder.forAddress("35.225.85.78", 9090)
+		ManagedChannel channel1 = ManagedChannelBuilder.forAddress("localhost", 9090)
 								.usePlaintext()
 								.build();
 
-		ManagedChannel channel2 = ManagedChannelBuilder.forAddress("35.232.178.122", 9090)
+		ManagedChannel channel2 = ManagedChannelBuilder.forAddress("localhost", 9090)
 								.usePlaintext()
 								.build();
-		ManagedChannel channel3 = ManagedChannelBuilder.forAddress("34.121.217.92", 9090)
-								.usePlaintext()
-								.build();
-
-		ManagedChannel channel4 = ManagedChannelBuilder.forAddress("35.184.141.49", 9090)
+		ManagedChannel channel3 = ManagedChannelBuilder.forAddress("localhost", 9090)
 								.usePlaintext()
 								.build();
 
-		ManagedChannel channel5 = ManagedChannelBuilder.forAddress("130.211.211.43", 9090)
+		ManagedChannel channel4 = ManagedChannelBuilder.forAddress("localhost", 9090)
 								.usePlaintext()
 								.build();
 
-		ManagedChannel channel6 = ManagedChannelBuilder.forAddress("34.123.201.105", 9090)
-								.usePlaintext()
-								.build();
-		ManagedChannel channel7 = ManagedChannelBuilder.forAddress("35.232.98.155", 9090)
+		ManagedChannel channel5 = ManagedChannelBuilder.forAddress("localhost", 9090)
 								.usePlaintext()
 								.build();
 
-		ManagedChannel channel8 = ManagedChannelBuilder.forAddress("130.211.225.228", 9090)
+		ManagedChannel channel6 = ManagedChannelBuilder.forAddress("localhost", 9090)
+								.usePlaintext()
+								.build();
+		ManagedChannel channel7 = ManagedChannelBuilder.forAddress("localhost", 9090)
+								.usePlaintext()
+								.build();
+
+		ManagedChannel channel8 = ManagedChannelBuilder.forAddress("localhost", 9090)
 								.usePlaintext()
 								.build();
 						
@@ -156,31 +156,25 @@ public class GRPCClientService {
 		MatrixServiceGrpc.MatrixServiceBlockingStub stub6 = MatrixServiceGrpc.newBlockingStub(channel6);
 		MatrixServiceGrpc.MatrixServiceBlockingStub stub7 = MatrixServiceGrpc.newBlockingStub(channel7);
 		MatrixServiceGrpc.MatrixServiceBlockingStub stub8 = MatrixServiceGrpc.newBlockingStub(channel8);
-		List<MatrixServiceGrpc.MatrixServiceBlockingStub> listOfStubs  =  new ArrayList<>(Arrays.asList(stub1, stub2, stub3, stub4, stub5, stub6, stub7, stub8));
-		//multiplying and printing multiplication of 2 matrices  
-		
-		int stubPositioninArray   = 0;
+
+		//multiplying and printing multiplication of 2 matrices    
 		for(int rowA=0;rowA<matrixA.length;rowA++){    
 			for(int rowB=0;rowB<matrixB.length;rowB++){    
 				matrixC[rowA][rowB]=0;     
 				//Do it for all rows/columns  - only works with square matrix 
 				for(int k=0;k<matrixA.length;k++)      
 				{  
-					if (k == 7)
-						stubPositioninArray = 0;
-
+					
 					//Calculate the multiplication  between two values 
-					MatrixReply  multValue = listOfStubs.get(stubPositioninArray).multiplyBlock(MatrixRequest.newBuilder()
+					MatrixReply  multValue = stub1.multiplyBlock(MatrixRequest.newBuilder()
 												.setA(matrixA[rowA][k])
 												.setB(matrixB[k][rowB])
 												.build());
-					stubPositioninArray++;						
 					//Add the value to existing c[i][j] - initiallly 0
-					MatrixReply  addValue = listOfStubs.get(stubPositioninArray).addBlock(MatrixRequest.newBuilder()
+					MatrixReply  addValue = stub1.addBlock(MatrixRequest.newBuilder()
 												.setA(multValue.getC())
 												.setB(matrixC[rowA][rowB])
 												.build());
-					stubPositioninArray++;
 					//Update the value
 					matrixC[rowA][rowB] = addValue.getC();
 					
