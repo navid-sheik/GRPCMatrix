@@ -135,7 +135,9 @@ public class GRPCClientService {
 	private static int[][] convertMatrixToString(String matrixString) {
 		// Split the matrix based on the space
 		String pattern = Pattern.quote("\\" + "n");
+	
 		String[] str1 = matrixString.split("\\|");
+		System.out.println(Arrays.toString(str1));
 		int[][] matrix = new int[str1.length][];
 		for (int i = 0; i < matrix.length; i++) {
 			String[] str2 = str1[i].split(",");
