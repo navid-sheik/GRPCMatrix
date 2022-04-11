@@ -96,7 +96,7 @@ public class GRPCClientService {
 		if (!checkMatrix(matrixA, matrixB))
 			System.out.println("Somethign wrong , adjust your matrix");
 
-		// clientOperation(matrixA, matrixB);
+		clientOperation(matrixA, matrixB);
 
 		return firstMatrix + secondMatrix + "hello";
 
