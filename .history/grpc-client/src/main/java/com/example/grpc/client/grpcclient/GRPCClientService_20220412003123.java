@@ -150,13 +150,13 @@ public class GRPCClientService {
 		//8 Stubs 
 		MatrixServiceGrpc.MatrixServiceBlockingStub stub1 = MatrixServiceGrpc.newBlockingStub(channel1);
 		MatrixServiceGrpc.MatrixServiceBlockingStub stub2 = MatrixServiceGrpc.newBlockingStub(channel2);
-		// MatrixServiceGrpc.MatrixServiceBlockingStub stub3 = MatrixServiceGrpc.newBlockingStub(channel3);
-		// MatrixServiceGrpc.MatrixServiceBlockingStub stub4 = MatrixServiceGrpc.newBlockingStub(channel4);
-		// MatrixServiceGrpc.MatrixServiceBlockingStub stub5= MatrixServiceGrpc.newBlockingStub(channel5);
-		// MatrixServiceGrpc.MatrixServiceBlockingStub stub6 = MatrixServiceGrpc.newBlockingStub(channel6);
-		// MatrixServiceGrpc.MatrixServiceBlockingStub stub7 = MatrixServiceGrpc.newBlockingStub(channel7);
-		// MatrixServiceGrpc.MatrixServiceBlockingStub stub8 = MatrixServiceGrpc.newBlockingStub(channel8);
-		List<MatrixServiceGrpc.MatrixServiceBlockingStub> listOfStubs  =  new ArrayList<>(Arrays.asList(stub1, stub2));
+		MatrixServiceGrpc.MatrixServiceBlockingStub stub3 = MatrixServiceGrpc.newBlockingStub(channel3);
+		MatrixServiceGrpc.MatrixServiceBlockingStub stub4 = MatrixServiceGrpc.newBlockingStub(channel4);
+		MatrixServiceGrpc.MatrixServiceBlockingStub stub5= MatrixServiceGrpc.newBlockingStub(channel5);
+		MatrixServiceGrpc.MatrixServiceBlockingStub stub6 = MatrixServiceGrpc.newBlockingStub(channel6);
+		MatrixServiceGrpc.MatrixServiceBlockingStub stub7 = MatrixServiceGrpc.newBlockingStub(channel7);
+		MatrixServiceGrpc.MatrixServiceBlockingStub stub8 = MatrixServiceGrpc.newBlockingStub(channel8);
+		List<MatrixServiceGrpc.MatrixServiceBlockingStub> listOfStubs  =  new ArrayList<>(Arrays.asList(stub1, stub2, stub3, stub4, stub5, stub6, stub7, stub8));
 		//multiplying and printing multiplication of 2 matrices  
 		
 		int stubPositioninArray   = 0;
@@ -191,12 +191,12 @@ public class GRPCClientService {
 		print2D(matrixC);
 		channel1.shutdown();
 		channel2.shutdown();
-		// channel3.shutdown();
-		// channel4.shutdown();
-		// channel5.shutdown();
-		// channel6.shutdown();
-		// channel7.shutdown();
-		// channel8.shutdown();
+		channel3.shutdown();
+		channel4.shutdown();
+		channel5.shutdown();
+		channel6.shutdown();
+		channel7.shutdown();
+		channel8.shutdown();
 	
 
 
