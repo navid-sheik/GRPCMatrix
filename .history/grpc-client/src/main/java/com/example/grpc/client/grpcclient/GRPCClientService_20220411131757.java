@@ -130,7 +130,7 @@ public class GRPCClientService {
 
 	private static int[][] convertMatrixToString(String matrixString) {
 		// Split the matrix based on the space
-		String[] str1 = matrixString.split("\\r?\\n");
+		String[] str1 = matrixString.split("\\s+");
 		System.out.println(Arrays.toString(str1));
 		int[][] matrix = new int[str1.length][];
 		for (int i = 0; i < matrix.length; i++) {
