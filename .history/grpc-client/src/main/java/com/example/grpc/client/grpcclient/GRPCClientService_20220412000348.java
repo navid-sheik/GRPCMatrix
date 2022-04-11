@@ -166,7 +166,7 @@ public class GRPCClientService {
 				//Do it for all rows/columns  - only works with square matrix 
 				for(int k=0;k<matrixA.length;k++)      
 				{  
-					if (stubPositioninArray == 1)
+					if (stubPositioninArray == 7)
 						stubPositioninArray = 0;
 
 					//Calculate the multiplication  between two values 
