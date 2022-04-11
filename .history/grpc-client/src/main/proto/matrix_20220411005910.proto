@@ -28,14 +28,13 @@ service MatrixService{
 
 // The request message containing the two matricies
 message MatrixRequest {
-
   int32 a = 1;
   int32 b = 2;
 }
 
 // The response message containing the result marix
 message MatrixReply {
-   int32 c =  3;
+  int32 c =  3;
 }
 
 
