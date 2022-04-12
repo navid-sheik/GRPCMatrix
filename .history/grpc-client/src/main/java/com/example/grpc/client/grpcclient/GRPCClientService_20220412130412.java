@@ -30,9 +30,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.method.annotation.MvcUriComponentsBuilder;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
-
-import ch.qos.logback.core.joran.conditional.ElseAction;
-
 import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
 import java.util.*;
@@ -126,9 +123,9 @@ public class GRPCClientService {
 		ManagedChannel channel2 = ManagedChannelBuilder.forAddress("34.66.120.9", 9090)
 								.usePlaintext()
 								.build();
-		ManagedChannel channel3 = ManagedChannelBuilder.forAddress("34.121.217.92", 9090)
-								.usePlaintext()
-								.build();
+		// ManagedChannel channel3 = ManagedChannelBuilder.forAddress("34.121.217.92", 9090)
+		// 						.usePlaintext()
+		// 						.build();
 
 		// ManagedChannel channel4 = ManagedChannelBuilder.forAddress("35.184.141.49", 9090)
 		// 						.usePlaintext()
@@ -153,16 +150,13 @@ public class GRPCClientService {
 		//8 Stubs 
 		MatrixServiceGrpc.MatrixServiceBlockingStub stub1 = MatrixServiceGrpc.newBlockingStub(channel1);
 		MatrixServiceGrpc.MatrixServiceBlockingStub stub2 = MatrixServiceGrpc.newBlockingStub(channel2);
-		MatrixServiceGrpc.MatrixServiceBlockingStub stub3 = MatrixServiceGrpc.newBlockingStub(channel3);
+		// MatrixServiceGrpc.MatrixServiceBlockingStub stub3 = MatrixServiceGrpc.newBlockingStub(channel3);
 		// MatrixServiceGrpc.MatrixServiceBlockingStub stub4 = MatrixServiceGrpc.newBlockingStub(channel4);
 		// MatrixServiceGrpc.MatrixServiceBlockingStub stub5= MatrixServiceGrpc.newBlockingStub(channel5);
 		// MatrixServiceGrpc.MatrixServiceBlockingStub stub6 = MatrixServiceGrpc.newBlockingStub(channel6);
 		// MatrixServiceGrpc.MatrixServiceBlockingStub stub7 = MatrixServiceGrpc.newBlockingStub(channel7);
 		// MatrixServiceGrpc.MatrixServiceBlockingStub stub8 = MatrixServiceGrpc.newBlockingStub(channel8);
-		List<MatrixServiceGrpc.MatrixServiceBlockingStub> listOfStubs  =  new ArrayList<MatrixServiceGrpc.MatrixServiceBlockingStub>();
-		listOfStubs.add(stub1);
-		listOfStubs.add(stub2);
-		listOfStubs.add(stub3);
+		List<MatrixServiceGrpc.MatrixServiceBlockingStub> listOfStubs  =  new ArrayList<>(Arrays.asList(stub1, stub2));
 		//multiplying and printing multiplication of 2 matrices  
 		
 		int stubPositioninArray   = 0;
@@ -172,24 +166,24 @@ public class GRPCClientService {
 				//Do it for all rows/columns  - only works with square matrix 
 				for(int k=0;k<matrixA.length;k++)      
 				{  
-					
+					if (stubPositioninArray == 1)
+						stubPositioninArray = 0;
 
 					//Calculate the multiplication  between two values 
 					MatrixReply  multValue = listOfStubs.get(stubPositioninArray).multiplyBlock(MatrixRequest.newBuilder()
 												.setA(matrixA[rowA][k])
 												.setB(matrixB[k][rowB])
 												.build());
-					stubPositioninArray =  stubPositioninArray == 1 ?  0 : stubPositioninArray++;
-
+					stubPositioninArray++;						
 					//Add the value to existing c[i][j] - initiallly 0
 					MatrixReply  addValue = listOfStubs.get(stubPositioninArray).addBlock(MatrixRequest.newBuilder()
 												.setA(multValue.getC())
 												.setB(matrixC[rowA][rowB])
 												.build());
-				
+					stubPositioninArray++;
 					//Update the value
 					matrixC[rowA][rowB] = addValue.getC();
-					stubPositioninArray =  stubPositioninArray == 1 ?  0 : stubPositioninArray++;
+					
 
 				}
 			}
@@ -197,7 +191,6 @@ public class GRPCClientService {
 		print2D(matrixC);
 		channel1.shutdown();
 		channel2.shutdown();
-		channel3.shutdown();
 		// channel3.shutdown();
 		// channel4.shutdown();
 		// channel5.shutdown();
