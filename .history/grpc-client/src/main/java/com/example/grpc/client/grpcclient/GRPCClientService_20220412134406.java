@@ -119,14 +119,14 @@ public class GRPCClientService {
 		int[][] matrixC =  new int[matrixA.length][matrixB.length];
 		
 		//Channels 8
-		ManagedChannel channel1 = ManagedChannelBuilder.forAddress("35.224.49.232", 9090)
+		ManagedChannel channel1 = ManagedChannelBuilder.forAddress("35.225.38.182", 9090)
 								.usePlaintext()
 								.build();
 
-		ManagedChannel channel2 = ManagedChannelBuilder.forAddress("34.70.224.69", 9090)
+		ManagedChannel channel2 = ManagedChannelBuilder.forAddress("34.66.120.9", 9090)
 								.usePlaintext()
 								.build();
-		ManagedChannel channel3 = ManagedChannelBuilder.forAddress("35.226.190.223", 9090)
+		ManagedChannel channel3 = ManagedChannelBuilder.forAddress("34.121.217.92", 9090)
 								.usePlaintext()
 								.build();
 
