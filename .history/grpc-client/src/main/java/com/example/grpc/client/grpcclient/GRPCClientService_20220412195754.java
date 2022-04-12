@@ -130,22 +130,22 @@ public class GRPCClientService {
 								.usePlaintext()
 								.build();
 
-		ManagedChannel channel4 = ManagedChannelBuilder.forAddress("35.223.53.69", 9090)
+		ManagedChannel channel4 = ManagedChannelBuilder.forAddress("35.184.141.49", 9090)
 								.usePlaintext()
 								.build();
 
-		ManagedChannel channel5 = ManagedChannelBuilder.forAddress("34.135.159.245", 9090)
+		ManagedChannel channel5 = ManagedChannelBuilder.forAddress("130.211.211.43", 9090)
 								.usePlaintext()
 								.build();
 
-		ManagedChannel channel6 = ManagedChannelBuilder.forAddress("34.66.204.252", 9090)
+		ManagedChannel channel6 = ManagedChannelBuilder.forAddress("34.123.201.105", 9090)
 								.usePlaintext()
 								.build();
-		ManagedChannel channel7 = ManagedChannelBuilder.forAddress("34.122.92.236", 9090)
+		ManagedChannel channel7 = ManagedChannelBuilder.forAddress("35.232.98.155", 9090)
 								.usePlaintext()
 								.build();
 
-		ManagedChannel channel8 = ManagedChannelBuilder.forAddress("35.224.188.23", 9090)
+		ManagedChannel channel8 = ManagedChannelBuilder.forAddress("130.211.225.228", 9090)
 								.usePlaintext()
 								.build();
 						
