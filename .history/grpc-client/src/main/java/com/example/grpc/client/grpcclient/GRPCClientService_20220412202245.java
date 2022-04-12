@@ -85,12 +85,9 @@ public class GRPCClientService {
 
 	// }
 
-	// public String fileUpload(@RequestParam("file") MultipartFile file, @RequestParam("file2") MultipartFile file2)
-	// 		throws IOException {
-		
-	// }
+	
 
-	public   void clientOperation(int[][] matrixA, int[][] matrixB){
+	public static  void clientOperation(int[][] matrixA, int[][] matrixB){
 		//perform multiplication
 		//Source https://www.javatpoint.com/java-program-to-multiply-two-matrices
 		

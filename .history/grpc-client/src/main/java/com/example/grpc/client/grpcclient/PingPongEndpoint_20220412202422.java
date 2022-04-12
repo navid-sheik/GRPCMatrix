@@ -31,13 +31,6 @@ import org.springframework.web.servlet.mvc.method.annotation.MvcUriComponentsBui
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
-
-import ch.qos.logback.core.joran.conditional.ElseAction;
-
-import java.nio.charset.Charset;
-import java.nio.charset.StandardCharsets;
-import java.util.*;
-import java.util.regex.Pattern;
 @RestController
 public class PingPongEndpoint {    
 	 public static int matrixA = 0;

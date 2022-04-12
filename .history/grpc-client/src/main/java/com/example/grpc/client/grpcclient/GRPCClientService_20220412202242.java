@@ -90,7 +90,7 @@ public class GRPCClientService {
 		
 	// }
 
-	public   void clientOperation(int[][] matrixA, int[][] matrixB){
+	public static  void clientOperation(int[][] matrixA, int[][] matrixB){
 		//perform multiplication
 		//Source https://www.javatpoint.com/java-program-to-multiply-two-matrices
 		
