@@ -145,7 +145,7 @@ public class GRPCClientService {
 		//127 seconds deadline
 		long footprint =  calculateFootprint(stub1);
 		int numberOfCalls =  calculateNumberOfCalls(matrixA.length);
-		int server_needed  =  calculateServersRequired(numberOfCalls, footprint, 127);
+		int server_needed  =  calculateServersRequired(numberOfCalls, footprint, 90);
 		
 		int stubInUse   = 0;
 		for(int rowA=0;rowA<matrixA.length;rowA++){    

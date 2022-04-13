@@ -142,10 +142,10 @@ public class GRPCClientService {
 	
 		//multiplying and printing multiplication of 2 matrices  
 		
-		//127 seconds deadline
+		//5 seconds deadline
 		long footprint =  calculateFootprint(stub1);
 		int numberOfCalls =  calculateNumberOfCalls(matrixA.length);
-		int server_needed  =  calculateServersRequired(numberOfCalls, footprint, 127);
+		int server_needed  =  calculateServersRequired(numberOfCalls, footprint, 5);
 		
 		int stubInUse   = 0;
 		for(int rowA=0;rowA<matrixA.length;rowA++){    

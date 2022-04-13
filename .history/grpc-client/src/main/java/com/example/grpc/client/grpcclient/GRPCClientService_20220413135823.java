@@ -142,36 +142,31 @@ public class GRPCClientService {
 	
 		//multiplying and printing multiplication of 2 matrices  
 		
-		//127 seconds deadline
-		long footprint =  calculateFootprint(stub1);
-		int numberOfCalls =  calculateNumberOfCalls(matrixA.length);
-		int server_needed  =  calculateServersRequired(numberOfCalls, footprint, 127);
-		
-		int stubInUse   = 0;
+		int stubPositioninArray   = 0;
 		for(int rowA=0;rowA<matrixA.length;rowA++){    
 			for(int rowB=0;rowB<matrixB.length;rowB++){    
 				matrixC[rowA][rowB]=0;     
 				//Do it for all rows/columns  - only works with square matrix 
 				for(int k=0;k<matrixA.length;k++)      
 				{  
-					stubInUse =  stubInUse == server_needed-1 ?  0 : stubInUse++;
+					stubPositioninArray =  stubPositioninArray == 7?  0 : stubPositioninArray++;
 
 					//Calculate the multiplication  between two values 
-					MatrixReply  multValue = listOfStubs.get(stubInUse).multiplyBlock(MatrixRequest.newBuilder()
+					MatrixReply  multValue = listOfStubs.get(stubPositioninArray).multiplyBlock(MatrixRequest.newBuilder()
 												.setA(matrixA[rowA][k])
 												.setB(matrixB[k][rowB])
 												.build());
-					stubInUse =  stubInUse == server_needed-1?  0 : stubInUse++;
+					stubPositioninArray =  stubPositioninArray == 7?  0 : stubPositioninArray++;
 
 					//Add the value to existing c[i][j] - initiallly 0
-					MatrixReply  addValue = listOfStubs.get(stubInUse).addBlock(MatrixRequest.newBuilder()
+					MatrixReply  addValue = listOfStubs.get(stubPositioninArray).addBlock(MatrixRequest.newBuilder()
 												.setA(multValue.getC())
 												.setB(matrixC[rowA][rowB])
 												.build());
 				
 					//Update the value
 					matrixC[rowA][rowB] = addValue.getC();
-					stubInUse =  stubInUse == server_needed-1 ?  0 : stubInUse++;
+					stubPositioninArray =  stubPositioninArray == 7 ?  0 : stubPositioninArray++;
 
 				}
 			}
@@ -194,44 +189,7 @@ public class GRPCClientService {
 	
 
 	
-	private long calculateFootprint(MatrixServiceGrpc.MatrixServiceBlockingStub  stub){
-		long startTime =  System.currentTimeMillis();
-		
-		MatrixReply  test = stub.multiplyBlock(MatrixRequest.newBuilder()
-												.setA(4)
-												.setB(5)
-												.build());
-		int val =  test.getC();
-		//gRPC function call
 
-		
-		long endTime =  System.currentTimeMillis();
-
-		long footprint= endTime-startTime;
-		//convert to seconds 
-		return footprint/1000;
-
-	}
-
-	private int calculateNumberOfCalls(int matrixDimension){
-		double numberOfCallsDouble  =  Math.pow(matrixDimension,matrixDimension);
-		int numberOfCallsInt  = (int) Math.round(numberOfCallsDouble);
-		return  numberOfCallsInt;
-	}
-
-	private int calculateServersRequired(int numBlockCalls, long footprint, int deadline){
-		//default deadline = 127 seconds
-		long numberServerLong=(footprint*numBlockCalls)/deadline;
-		int  numberServer= (int) Math.round(numberServerLong);
-		if (numberServer > 8)
-			numberServer = 8;
-		else if (numberServer < 1)
-			numberServer = 1;
-		
-		return numberServer;
-
-
-	}
 
 
 	private static int[][] convertMatrixToString(String matrixString) {

@@ -142,10 +142,9 @@ public class GRPCClientService {
 	
 		//multiplying and printing multiplication of 2 matrices  
 		
-		//127 seconds deadline
 		long footprint =  calculateFootprint(stub1);
-		int numberOfCalls =  calculateNumberOfCalls(matrixA.length);
-		int server_needed  =  calculateServersRequired(numberOfCalls, footprint, 127);
+		double numberOfCalls =  calculateNumberOfCalls(matrixA.length);
+		int server_needed  =  calculateServersRequired(numBlockCalls, footprint, 5);
 		
 		int stubInUse   = 0;
 		for(int rowA=0;rowA<matrixA.length;rowA++){    
@@ -154,14 +153,14 @@ public class GRPCClientService {
 				//Do it for all rows/columns  - only works with square matrix 
 				for(int k=0;k<matrixA.length;k++)      
 				{  
-					stubInUse =  stubInUse == server_needed-1 ?  0 : stubInUse++;
+					stubInUse =  stubInUse == 7?  0 : stubInUse++;
 
 					//Calculate the multiplication  between two values 
 					MatrixReply  multValue = listOfStubs.get(stubInUse).multiplyBlock(MatrixRequest.newBuilder()
 												.setA(matrixA[rowA][k])
 												.setB(matrixB[k][rowB])
 												.build());
-					stubInUse =  stubInUse == server_needed-1?  0 : stubInUse++;
+					stubInUse =  stubInUse == 7?  0 : stubInUse++;
 
 					//Add the value to existing c[i][j] - initiallly 0
 					MatrixReply  addValue = listOfStubs.get(stubInUse).addBlock(MatrixRequest.newBuilder()
@@ -171,7 +170,7 @@ public class GRPCClientService {
 				
 					//Update the value
 					matrixC[rowA][rowB] = addValue.getC();
-					stubInUse =  stubInUse == server_needed-1 ?  0 : stubInUse++;
+					stubInUse =  stubInUse == 7 ?  0 : stubInUse++;
 
 				}
 			}
@@ -208,21 +207,17 @@ public class GRPCClientService {
 		long endTime =  System.currentTimeMillis();
 
 		long footprint= endTime-startTime;
-		//convert to seconds 
-		return footprint/1000;
+		return footprint;
 
 	}
 
-	private int calculateNumberOfCalls(int matrixDimension){
-		double numberOfCallsDouble  =  Math.pow(matrixDimension,matrixDimension);
-		int numberOfCallsInt  = (int) Math.round(numberOfCallsDouble);
-		return  numberOfCallsInt;
+	private double calculateNumberOfCalls(int matrixDimension){
+		return Math.pow(matrixDimension,matrixDimension);
 	}
 
-	private int calculateServersRequired(int numBlockCalls, long footprint, int deadline){
+	private int calculateServersRequired(int numBlockCalls, int footprint, int deadline){
 		//default deadline = 127 seconds
-		long numberServerLong=(footprint*numBlockCalls)/deadline;
-		int  numberServer= (int) Math.round(numberServerLong);
+		int numberServer=(footprint*numBlockCalls)/deadline;
 		if (numberServer > 8)
 			numberServer = 8;
 		else if (numberServer < 1)
