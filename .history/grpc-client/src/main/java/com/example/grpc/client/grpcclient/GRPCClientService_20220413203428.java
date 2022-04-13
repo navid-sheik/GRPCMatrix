@@ -146,7 +146,6 @@ public class GRPCClientService {
 		long footprint =  calculateFootprint(stub1);
 		int numberOfCalls =  calculateNumberOfCalls(matrixA.length);
 		int server_needed  =  calculateServersRequired(numberOfCalls, footprint, 127);
-		System.out.print("The server being used" + server_needed); 
 		
 		int stubInUse   = 0;
 		for(int rowA=0;rowA<matrixA.length;rowA++){    
