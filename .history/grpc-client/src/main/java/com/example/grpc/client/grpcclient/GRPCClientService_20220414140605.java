@@ -146,7 +146,7 @@ public class GRPCClientService {
 		long footprint =  calculateFootprint(stub1);
 		int numberOfCalls =  calculateNumberOfCalls(matrixA.length);
 		int server_needed  =  calculateServersRequired(numberOfCalls, footprint, deadline);
-		System.out.println("The server being used " + server_needed); 
+		System.out.println("The server being used" + server_needed); 
 		
 		//Source https://www.javatpoint.com/java-program-to-multiply-two-matrices
 		int stubInUse   = 0;
@@ -223,9 +223,8 @@ public class GRPCClientService {
 		System.out.println("The number of  calls  is " + numBlockCalls);
 		System.out.println("The deadline   is " +  deadline);
 		//default deadline = 127 seconds
-		System.out.println("footprint + numbblocks calls "  + (footprint*numBlockCalls));
+		System.out.println("footprint + numbblocks calls"  + (footprint*numBlockCalls));
 		long numberServerLong=(footprint*numBlockCalls)/deadline;
-		System.out.print("number of server long " +  numberServerLong);
 		int  numberServer= (int) Math.round(numberServerLong);
 		//If the number of server exceed the available servers
 		if (numberServer > 8)
@@ -288,7 +287,13 @@ public class GRPCClientService {
 	//Source :https://www.geeksforgeeks.org/print-2-d-array-matrix-java/
 	public static void print2D(int mat[][])
     {
-		System.out.println(Arrays.deepToString(mat).replace("], ", "]\n"));
+        // Loop through all rows
+        for (int i = 0; i < mat.length; i++)
+ 
+            // Loop through all elements of current row
+            for (int j = 0; j < mat[i].length; j++)
+                System.out.print(mat[i][j] + " ");
+			System.out.println(" ");
     }
  
 }
