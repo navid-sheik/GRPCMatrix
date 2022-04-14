@@ -90,9 +90,9 @@ public class GRPCClientService {
 		
 	// }
 
-	public   void clientOperation(int[][] matrixA, int[][] matrixB, int deadline){
+	public   void clientOperation(int[][] matrixA, int[][] matrixB){
 		//perform multiplication
-		
+		//Source https://www.javatpoint.com/java-program-to-multiply-two-matrices
 		
 		//new size matrix  
 		int[][] matrixC =  new int[matrixA.length][matrixB.length];
@@ -145,10 +145,9 @@ public class GRPCClientService {
 		//127 seconds deadline
 		long footprint =  calculateFootprint(stub1);
 		int numberOfCalls =  calculateNumberOfCalls(matrixA.length);
-		int server_needed  =  calculateServersRequired(numberOfCalls, footprint, deadline);
+		int server_needed  =  calculateServersRequired(numberOfCalls, footprint, 65);
 		System.out.println("The server being used" + server_needed); 
 		
-		//Source https://www.javatpoint.com/java-program-to-multiply-two-matrices
 		int stubInUse   = 0;
 		for(int rowA=0;rowA<matrixA.length;rowA++){    
 			for(int rowB=0;rowB<matrixB.length;rowB++){    
@@ -217,8 +216,7 @@ public class GRPCClientService {
 	}
 
 	private int calculateNumberOfCalls(int matrixDimension){
-		int elementsInMatrix  =  matrixDimension * matrixDimension;
-		double numberOfCallsDouble  = elementsInMatrix * matrixDimension;
+		double numberOfCallsDouble  =  Math.pow(matrixDimension,matrixDimension);
 		int numberOfCallsInt  = (int) Math.round(numberOfCallsDouble);
 		return  numberOfCallsInt;
 	}

@@ -92,7 +92,7 @@ public class GRPCClientService {
 
 	public   void clientOperation(int[][] matrixA, int[][] matrixB, int deadline){
 		//perform multiplication
-		
+		//Source https://www.javatpoint.com/java-program-to-multiply-two-matrices
 		
 		//new size matrix  
 		int[][] matrixC =  new int[matrixA.length][matrixB.length];
@@ -148,7 +148,6 @@ public class GRPCClientService {
 		int server_needed  =  calculateServersRequired(numberOfCalls, footprint, deadline);
 		System.out.println("The server being used" + server_needed); 
 		
-		//Source https://www.javatpoint.com/java-program-to-multiply-two-matrices
 		int stubInUse   = 0;
 		for(int rowA=0;rowA<matrixA.length;rowA++){    
 			for(int rowB=0;rowB<matrixB.length;rowB++){    
