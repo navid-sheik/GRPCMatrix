@@ -74,7 +74,7 @@ public class PingPongEndpoint {
 		int[][] matrixB = convertMatrixToString(secondMatrix);
 		System.out.println("Matrix A");
 		print2D(matrixA);
-		System.out.println("Matrix B");
+		System.out.println("Matrix A");
 		print2D(matrixB);
 		
 
