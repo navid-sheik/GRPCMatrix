@@ -193,20 +193,15 @@ public class GRPCClientService {
 
 	
 	}
-	public  int  randomNumber() {
-		int leftLimit = 0;
-		int rightLimit = 10;
-		int generatedInteger = leftLimit + (int) (new Random().nextFloat() * (rightLimit - leftLimit));
-		return generatedInteger;
-	}
+	
 
 	
 	private double calculateFootprint(MatrixServiceGrpc.MatrixServiceBlockingStub  stub){
 		long startTime =  System.currentTimeMillis();
-		Random
+		
 		MatrixReply  test = stub.multiplyBlock(MatrixRequest.newBuilder()
-												.setA(randomNumber())
-												.setB(randomNumber())
+												.setA(4)
+												.setB(5)
 												.build());
 		long endTime =  System.currentTimeMillis();
 		long footprint= endTime-startTime;
