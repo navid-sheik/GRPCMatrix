@@ -203,7 +203,7 @@ public class GRPCClientService {
 	private double calculateFootprint(MatrixServiceGrpc.MatrixServiceBlockingStub  stubs){
 		long startTime =  System.currentTimeMillis();
 		int randomStub  =  randomNumber(0, stubs.size() - 1);
-		MatrixReply  test = stubs.get(randomStub).multiplyBlock(MatrixRequest.newBuilder()
+		MatrixReply  test = stubs[randomStub].get().multiplyBlock(MatrixRequest.newBuilder()
 												.setA(randomNumber(0, 8))
 												.setB(randomNumber(0,8))
 												.build());
