@@ -226,10 +226,8 @@ public class GRPCClientService {
 		System.out.print("footprint + numbblocks calls"  + (footprint*numBlockCalls));
 		long numberServerLong=(footprint*numBlockCalls)/deadline;
 		int  numberServer= (int) Math.round(numberServerLong);
-		//If the number of server exceed the available servers
 		if (numberServer > 8)
 			numberServer = 8;
-		//if the number of server required is less 1
 		else if (numberServer < 1)
 			numberServer = 1;
 		return numberServer;
