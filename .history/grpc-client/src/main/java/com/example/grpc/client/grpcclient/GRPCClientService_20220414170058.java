@@ -86,7 +86,9 @@ public class GRPCClientService {
 		ManagedChannel channel8 = ManagedChannelBuilder.forAddress("35.224.82.28", 9090)
 								.usePlaintext()
 								.build();
-		//8 Stubs 				
+						
+
+		//8 Stubs 
 		MatrixServiceGrpc.MatrixServiceBlockingStub stub1 = MatrixServiceGrpc.newBlockingStub(channel1);
 		MatrixServiceGrpc.MatrixServiceBlockingStub stub2 = MatrixServiceGrpc.newBlockingStub(channel2);
 		MatrixServiceGrpc.MatrixServiceBlockingStub stub3 = MatrixServiceGrpc.newBlockingStub(channel3);
@@ -97,13 +99,13 @@ public class GRPCClientService {
 		MatrixServiceGrpc.MatrixServiceBlockingStub stub8 = MatrixServiceGrpc.newBlockingStub(channel8);
 		List<MatrixServiceGrpc.MatrixServiceBlockingStub> listOfStubs  =  new ArrayList<MatrixServiceGrpc.MatrixServiceBlockingStub>(Arrays.asList(stub1,stub2,stub3,stub4,stub5,stub6,stub7,stub8) );
 	
-		//Scaling and footprint 
+
 		double footprint =  calculateFootprint(listOfStubs);
 		int numberOfCalls =  calculateNumberOfCalls(matrixA.length);
 		int server_needed  =  calculateServersRequired(numberOfCalls, footprint, deadline);
 		System.out.println("The server required : " + server_needed); 
 
-		//Initialize matrix D
+
 		int[][] matrixC =  new int[matrixA.length][matrixB.length];
 		
 		//Source https://www.javatpoint.com/java-program-to-multiply-two-matrices
@@ -137,7 +139,6 @@ public class GRPCClientService {
 			}
 		}
 		print2D(matrixC);
-		//Close channles 
 		channel1.shutdown();
 		channel2.shutdown();
 		channel3.shutdown();

@@ -52,11 +52,52 @@ public class GRPCClientService {
 		return helloResponse.getPong();
 	}
 
+	// public String add() {
+	// 	ManagedChannel channel = ManagedChannelBuilder.forAddress("localhost", 9090)
+	// 			.usePlaintext()
+	// 			.build();
+	// 	MatrixServiceGrpc.MatrixServiceBlockingStub stub = MatrixServiceGrpc.newBlockingStub(channel);
+	// 	MatrixReply A = stub.addBlock(MatrixRequest.newBuilder()
+	// 			.setA00(1)
+	// 			.setA01(2)
+	// 			.setA10(5)
+	// 			.setA11(6)
+	// 			.setB00(2)
+	// 			.setB01(3)
+	// 			.setB10(6)
+	// 			.setB11(7)
+	// 			.build());
+	// 	String resp = A.getC00() + A.getC01() + A.getC10() + A.getC11() + "";
+	// 	return resp;
+	// }
+
+	// public String multMatrix() {
+	// 	ManagedChannel channel = ManagedChannelBuilder.forAddress("localhost", 9090)
+	// 			.usePlaintext()
+	// 			.build();
+	// 	MatrixServiceGrpc.MatrixServiceBlockingStub stub = MatrixServiceGrpc.newBlockingStub(channel);
+	// 	MatrixReply A = stub.multiplyBlock(MatrixRequest.newBuilder()
+	// 			.setA(1)
+	// 			.setB(2)
+	// 			.build());
+	// 	String resp = A.getA() * A.getB() "";
+	// 	return resp;
+
+	// }
+
+	// public String fileUpload(@RequestParam("file") MultipartFile file, @RequestParam("file2") MultipartFile file2)
+	// 		throws IOException {
+		
+	// }
 
 	public  void clientOperation(int[][] matrixA, int[][] matrixB, int deadline){
+		//perform multiplication
 		
-			
-		//
+		
+		//new size matrix  
+		int[][] matrixC =  new int[matrixA.length][matrixB.length];
+		
+		//Channels 8
 		ManagedChannel channel1 = ManagedChannelBuilder.forAddress("35.188.43.26", 9090)
 								.usePlaintext()
 								.build();
@@ -86,7 +127,9 @@ public class GRPCClientService {
 		ManagedChannel channel8 = ManagedChannelBuilder.forAddress("35.224.82.28", 9090)
 								.usePlaintext()
 								.build();
-		//8 Stubs 				
+						
+
+		//8 Stubs 
 		MatrixServiceGrpc.MatrixServiceBlockingStub stub1 = MatrixServiceGrpc.newBlockingStub(channel1);
 		MatrixServiceGrpc.MatrixServiceBlockingStub stub2 = MatrixServiceGrpc.newBlockingStub(channel2);
 		MatrixServiceGrpc.MatrixServiceBlockingStub stub3 = MatrixServiceGrpc.newBlockingStub(channel3);
@@ -97,14 +140,13 @@ public class GRPCClientService {
 		MatrixServiceGrpc.MatrixServiceBlockingStub stub8 = MatrixServiceGrpc.newBlockingStub(channel8);
 		List<MatrixServiceGrpc.MatrixServiceBlockingStub> listOfStubs  =  new ArrayList<MatrixServiceGrpc.MatrixServiceBlockingStub>(Arrays.asList(stub1,stub2,stub3,stub4,stub5,stub6,stub7,stub8) );
 	
-		//Scaling and footprint 
+		//multiplying and printing multiplication of 2 matrices  
+		
+		//127 seconds deadline
 		double footprint =  calculateFootprint(listOfStubs);
 		int numberOfCalls =  calculateNumberOfCalls(matrixA.length);
 		int server_needed  =  calculateServersRequired(numberOfCalls, footprint, deadline);
 		System.out.println("The server required : " + server_needed); 
-
-		//Initialize matrix D
-		int[][] matrixC =  new int[matrixA.length][matrixB.length];
 		
 		//Source https://www.javatpoint.com/java-program-to-multiply-two-matrices
 		int stubInUse   = 0;
@@ -137,7 +179,6 @@ public class GRPCClientService {
 			}
 		}
 		print2D(matrixC);
-		//Close channles 
 		channel1.shutdown();
 		channel2.shutdown();
 		channel3.shutdown();
@@ -152,8 +193,13 @@ public class GRPCClientService {
 
 	
 	}
+	public  int  randomNumber(int leftLimit, int rightLimit) {
 
-	//Calculate footprint 
+		int generatedInteger = leftLimit + (int) (new Random().nextFloat() * (rightLimit - leftLimit));
+		return generatedInteger;
+	}
+
+	
 	private double calculateFootprint(List<MatrixServiceGrpc.MatrixServiceBlockingStub> stubs){
 		long startTime =  System.currentTimeMillis();
 		int randomStub  =  randomNumber(0, stubs.size() - 1);
@@ -169,7 +215,7 @@ public class GRPCClientService {
 		return footprintDouble/1000;
 
 	}
-	//Calculate number of calls 
+
 	private int calculateNumberOfCalls(int matrixDimension){
 		int elementsInMatrix  =  matrixDimension * matrixDimension;
 		double numberOfCallsDouble  = elementsInMatrix * matrixDimension;
@@ -195,19 +241,10 @@ public class GRPCClientService {
 
 	}
 	
-	
-	//Helper fuction - print 2D matrix 
+	//Source :https://www.geeksforgeeks.org/print-2-d-array-matrix-java/
 	public static void print2D(int mat[][])
     {
 		System.out.println(Arrays.deepToString(mat).replace("], ", "]\n"));
     }
-
-	//Helper function - random number
-	public  int  randomNumber(int leftLimit, int rightLimit) {
-
-		int generatedInteger = leftLimit + (int) (new Random().nextFloat() * (rightLimit - leftLimit));
-		return generatedInteger;
-	}
-
  
 }

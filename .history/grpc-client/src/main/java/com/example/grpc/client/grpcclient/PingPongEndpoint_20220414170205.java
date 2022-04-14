@@ -70,7 +70,6 @@ public class PingPongEndpoint {
 		System.out.println("File 2 uploaded correctly");
 		System.out.println(secondMatrix);
 
-		//Convert matrix from string extrated from files 
 		int[][] matrixA = convertMatrixToString(firstMatrix);
 		int[][] matrixB = convertMatrixToString(secondMatrix);
 		System.out.println("Matrix A");
@@ -78,7 +77,7 @@ public class PingPongEndpoint {
 		System.out.println("Matrix B");
 		print2D(matrixB);
 		
-		//If matrices not squares and dimensions not power of 2 , exit the program
+
 		if (!checkMatrix(matrixA, matrixB)){
 			System.out.println("Your matrices sizes are incorrect, square matrices with 2^n dimension");
 			return "Not successful";
@@ -87,9 +86,22 @@ public class PingPongEndpoint {
 		this.grpcClientService.clientOperation(matrixA, matrixB, deadline);
 
 		return "Successful" ;
+
+
+		
+//		try{
+//			String content = new String(file.getBytes());
+//			System.out.println(content);
+//		}catch(Expection e){
+//			System.out.println("Error on uploading");
+//		}
+//		redirectAttributes.addFlashAttribute("message",
+//				"You successfully uploaded " + file.getOriginalFilename() + "!");
+
+//		return "uploaded";
 	}
 
-	//Conver the string to matrix 
+
 	private static int[][] convertMatrixToString(String matrixString) {
 		// Split the matrix based on the space
 		String pattern = Pattern.quote("\\" + "n");
@@ -104,7 +116,7 @@ public class PingPongEndpoint {
 		}
 		return matrix;
 	}
-	//Check if matrix is square and dimensions power of two
+
 	private static boolean checkMatrix(int[][] matrixA, int[][] matrixB) {
 		return (isSquareMatrix(matrixA) && isMatrixPowerOfTwo(matrixA))
 				&& (isSquareMatrix(matrixB) && isMatrixPowerOfTwo(matrixB));
@@ -115,6 +127,7 @@ public class PingPongEndpoint {
 	}
 
 	private static boolean isMatrixPowerOfTwo(int[][] matrix) {
+
 		int rowNumber = matrix.length;
 		if (!isPowerOfTwo(rowNumber))
 			return false;
@@ -135,7 +148,7 @@ public class PingPongEndpoint {
 		}
 		return true;
 	}
-	//Helper - print 2D 
+	//Source :https://www.geeksforgeeks.org/print-2-d-array-matrix-java/
 	public static void print2D(int mat[][])
     {
         System.out.println(Arrays.deepToString(mat).replace("], ", "]\n"));
