@@ -143,7 +143,7 @@ public class GRPCClientService {
 		//multiplying and printing multiplication of 2 matrices  
 		
 		//127 seconds deadline
-		double footprint =  calculateFootprint(stub1);
+		long footprint =  calculateFootprint(stub1);
 		int numberOfCalls =  calculateNumberOfCalls(matrixA.length);
 		int server_needed  =  calculateServersRequired(numberOfCalls, footprint, deadline);
 		System.out.println("The server being used " + server_needed); 
@@ -219,13 +219,13 @@ public class GRPCClientService {
 		return  numberOfCallsInt;
 	}
 
-	private int calculateServersRequired(int numBlockCalls, double footprint, int deadline){
+	private int calculateServersRequired(int numBlockCalls, long footprint, int deadline){
 		System.out.println("The footprint is " + footprint);
 		System.out.println("The number of  calls  is " + numBlockCalls);
 		System.out.println("The deadline   is " +  deadline);
 		//default deadline = 127 seconds
 		System.out.println("footprint + numbblocks calls "  + (footprint*numBlockCalls));
-		double numberServerLong=(footprint*numBlockCalls)/deadline;
+		long numberServerLong=(footprint*numBlockCalls)/deadline;
 		System.out.print("number of server long " +  numberServerLong);
 		int  numberServer= (int) Math.round(numberServerLong);
 		//If the number of server exceed the available servers
