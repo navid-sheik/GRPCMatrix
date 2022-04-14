@@ -90,7 +90,7 @@ public class GRPCClientService {
 		
 	// }
 
-	public  void clientOperation(int[][] matrixA, int[][] matrixB, int deadline){
+	public   void clientOperation(int[][] matrixA, int[][] matrixB, int deadline){
 		//perform multiplication
 		
 		
@@ -203,7 +203,14 @@ public class GRPCClientService {
 												.setA(4)
 												.setB(5)
 												.build());
+
+
+	
+		//gRPC function call
+
+		
 		long endTime =  System.currentTimeMillis();
+
 		long footprint= endTime-startTime;
 		//convert to seconds 
 		System.out.println("The footprint in millisecond " + footprint);
@@ -230,6 +237,7 @@ public class GRPCClientService {
 			numberServer = 8;
 		else if (numberServer < 1)
 			numberServer = 1;
+		
 		return numberServer;
 
 
@@ -238,6 +246,7 @@ public class GRPCClientService {
 
 	private static int[][] convertMatrixToString(String matrixString) {
 		// Split the matrix based on the space
+		String pattern = Pattern.quote("\\" + "n");
 		String[] str1 = matrixString.split("\\|");
 		int[][] matrix = new int[str1.length][];
 		for (int i = 0; i < matrix.length; i++) {

@@ -90,7 +90,7 @@ public class GRPCClientService {
 		
 	// }
 
-	public  void clientOperation(int[][] matrixA, int[][] matrixB, int deadline){
+	public   void clientOperation(int[][] matrixA, int[][] matrixB, int deadline){
 		//perform multiplication
 		
 		
@@ -203,7 +203,9 @@ public class GRPCClientService {
 												.setA(4)
 												.setB(5)
 												.build());
+		
 		long endTime =  System.currentTimeMillis();
+
 		long footprint= endTime-startTime;
 		//convert to seconds 
 		System.out.println("The footprint in millisecond " + footprint);
